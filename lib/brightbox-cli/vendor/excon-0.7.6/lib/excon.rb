@@ -2,6 +2,7 @@ $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
 require 'cgi'
+require 'forwardable'
 require 'openssl'
 require 'rbconfig'
 require 'socket'
@@ -11,6 +12,8 @@ require 'excon/constants'
 require 'excon/connection'
 require 'excon/errors'
 require 'excon/response'
+require 'excon/socket'
+require 'excon/ssl_socket'
 
 module Excon
   class << self

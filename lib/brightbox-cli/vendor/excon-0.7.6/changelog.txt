@@ -1,0 +1,132 @@
+0.7.6 10/04/11
+==============
+
+* fixes to provide for using openssl-nonblock for 1.8.x
+* correctly pass per-request settings to socket
+* fix for nonblocking stuff when waiting for socket close
+* use 127.0.0.1 instead of localhost in tests (fixes some errors)
+
+0.7.5 10/03/11
+==============
+
+* convert port to integer in sockaddr_in (jruby won't convert for you)
+
+0.7.4 09/30/11
+==============
+
+* rescue write would block from openssl
+
+0.7.3 09/27/11
+==============
+
+* fix nonblocking read to avoid reading past chunk in chunked encoded
+* rescue read would block from openssl
+
+0.7.2 09/24/11
+==============
+
+* fix buffer drain for socket#write. thanks dpiddy
+* rescue/retry timeout errors for idempotent requests. thanks dpiddy
+* timeouts should raise an excon specific error
+
+0.7.1 09/13/11
+==============
+
+* use nonblocking only when available (skip for 1.8.x SSL)
+
+0.7.0 09/12/11
+==============
+
+* change connects and most read/writes to use nonblocking methods
+* provide connect/read/write timeouts
+
+0.6.6 09/06/11
+==============
+
+* cleanup/refactoring. thanks nextmat
+* default to connection close as request delimiter
+
+0.6.5 07/13/11
+==============
+
+* properly stream responses with proc
+* fix mock with block to match real requests
+
+0.6.4 07/05/11
+==============
+
+* add block support to mocks. thanks dmeiz
+* fixes for stub matching. thanks dmeiz
+* don't do post_connection_check if verify mode is off
+* check excon state for verify mode instead of checking OpenSSL constants
+* use RbConfig to find OS. thanks trym
+* fixes for idempotent/retry. thanks lstoll
+
+0.6.3 05/02/11
+==============
+
+* fixes for header parsing to allow whitespace after :. thanks myronmarston
+* get_header optimization. thanks nextmat
+* rewind body on retry. thanks pweldon
+
+0.6.2 04/11/11
+==============
+
+* fix block arguments for connection close. thanks ggoodale
+
+0.6.1 04/05/11
+==============
+
+* add support for HTTPS proxies. thanks mrowe
+* add support for http_proxy and https_proxy ENV variables. thanks mrowe
+* fix progress for requests with blocks that are chunked or connection close
+
+0.6.0 03/30/11
+==============
+
+* basic support for using proxies. thanks mattsa
+* yield remaining/total bytes to streaming block. thanks nate
+* minor optimizations/cleanup
+
+0.5.8 03/24/11
+==============
+
+* fix regression where nil values in queries were ignored in 1.9. thanks mattsa
+* fix regression causing EOFError when making many connections in one thread
+* added tests to prevent both of the former from recurring
+
+0.5.7 03/21/11
+==============
+
+* lazily connect, rather than connecting at #initialize
+* add rough first pass at stubbing
+* minor optimizations
+* ssl client certification support. thanks thommay
+* skip figuring out/setting Content-Length if one is supplied. Thanks pweldon
+* do not try to parse body for 205 and 304. Thanks seancribbs
+
+0.5.6 02/19/11
+==============
+
+* only split headers by first ':' to allow for values with ':'. Thanks mtodd!
+* check a string instance for force_encoding, not class. Thanks seancribbs!
+* add benchmarks related to for vs each for enumerable. Thanks caius!
+* fix default rake task to run tests
+
+0.5.5 02/18/11
+==============
+
+* use local variables in response parsing, prevents keeping state across requests
+
+0.5.4 02/18/11
+==============
+
+* 204 should not attempt to parse body
+
+
+0.5.3 02/17/11
+==============
+
+* header comparison for responses is now case insensitive
+* change to allow :idempotent => false to operate correctly
+* misc cleanup

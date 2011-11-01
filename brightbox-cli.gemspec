@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'json', '~> 1.5.3'
   s.add_dependency 'hirb', '0.3.5'
   s.add_dependency 'formatador', '~> 0.2.0'
-  s.add_dependency 'excon', '~> 0.6.1'
+  s.add_dependency 'excon', '~>0.7.3'
   s.add_dependency 'builder'
   s.add_dependency 'mime-types'
   s.add_dependency 'net-scp', '~> 1.0.4'

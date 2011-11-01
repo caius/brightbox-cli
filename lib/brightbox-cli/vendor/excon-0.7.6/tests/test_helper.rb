@@ -3,10 +3,10 @@ require 'bundler'
 
 Bundler.require(:default, :development)
 
-def basic_tests
+def basic_tests(url = 'http://127.0.0.1:9292')
   tests('GET /content-length/100') do
 
-    connection = Excon.new('http://127.0.0.1:9292')
+    connection = Excon.new(url)
     response = connection.request(:method => :get, :path => '/content-length/100')
 
     tests('response.status').returns(200) do
@@ -47,6 +47,17 @@ def basic_tests
         data = [chunk, remaining_length, total_length]
       end
       data
+    end
+
+  end
+
+  tests('POST /body-sink') do
+
+    connection = Excon.new(url)
+    response = connection.request(:method => :post, :path => '/body-sink', :body => 'x' * 5_000_000)
+
+    tests('response.body').returns("5000000") do
+      response.body
     end
   end
 end
