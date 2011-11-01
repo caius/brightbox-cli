@@ -16,9 +16,9 @@ module Fog
         attribute :name
         attribute :description
         attribute :default
+        attribute :created_at, :type => :time
 
         def save
-          requires :name
           options = {
             :name => name,
             :description => description

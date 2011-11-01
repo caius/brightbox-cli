@@ -56,6 +56,7 @@ module Brightbox
       options = {
         :order => :created_at,
       }.merge options
+
       objects = nil
       object = nil
       # get the data from the Api
@@ -114,7 +115,7 @@ module Brightbox
     end
 
     def self.cached_get(id)
-      @cache = {} if @cache.nil?
+      @cache ||= {}
       value = @cache[id]
       if value
         value
