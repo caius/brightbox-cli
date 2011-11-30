@@ -50,24 +50,17 @@ module Brightbox
     def add_nodes(nodes)
       node_hashes = nodes.collect { |n| { :node => n.id } }
       LoadBalancer.conn.add_nodes_load_balancer(id, :nodes => node_hashes)
-    rescue Excon::Errors::BadRequest => e
-      raise Conflict, JSON.parse(e.response.body)['error']['details']
     end
 
     def remove_nodes(nodes)
       node_hashes = nodes.collect { |n| { :node => n.id } }
       LoadBalancer.conn.remove_nodes_load_balancer(id, :nodes => node_hashes)
-    rescue Excon::Errors::BadRequest => e
-      raise Conflict, JSON.parse(e.response.body)['error']['details']
     end
 
     def update(options)
-      debug options.inspect
       LoadBalancer.conn.update_load_balancer(id, options)
       self.reload
       self
-    rescue Excon::Errors::BadRequest => e
-      raise Conflict, JSON.parse(e.response.body)['error']['details']
     end
 
     def self.get(id)

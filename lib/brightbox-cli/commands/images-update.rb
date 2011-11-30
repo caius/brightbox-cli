@@ -12,13 +12,16 @@ module Brightbox
     c.desc "Set image mode to be either 'virtio' or 'compatibility'"
     c.flag [:m, "mode"]
 
-    c.desc "Set image to be publically visible (true or false)"
+    c.desc "Set image to be publicly visible (true or false)"
     c.flag [:p, "public"]
+
+    c.desc "Set image to be deprecated (true or false)"
+    c.flag "deprecated"
 
     c.desc "Image description"
     c.flag [:d, "description"]
 
-    c.desc "Image Usernmae"
+    c.desc "Image Username"
     c.flag [:u, "username"]
 
     c.action do |global_options,options,args|
@@ -43,6 +46,10 @@ module Brightbox
 
       params[:public] = true if options[:p] == "true"
       params[:public] = false if options[:p] == "false"
+
+      # If options[:deprecated] isn't specified, leave the status alone
+      params[:status] = "deprecated" if options[:deprecated] == "true"
+      params[:status] = "available" if options[:deprecated] == "false"
 
       image = Image.find img_id
 
